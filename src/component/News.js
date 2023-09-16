@@ -24,8 +24,8 @@ const News = (props) => {
     props.setProgress(100);
   }
   const fetchMoreData = async () => {
-    setpage(page + 1);
     let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page+1}&pageSize=${props.pageSize}`;
+    setpage(page + 1);
     setloading(true);
     let data = await fetch(url);
     let parsdata = await data.json();
@@ -35,13 +35,14 @@ const News = (props) => {
   }
   useEffect(() => {
     upadate();
+    // eslint-disable-next-line
   }, [])
   const tocapital = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   return (
     <div className='container my-3'>
-      <h1>Today's Top {tocapital(props.category)} Headlines</h1>
+      <h1 style={{marginTop:'80px'}}>Today's Top {tocapital(props.category)} Headlines</h1>
       <InfiniteScroll
         dataLength={articles.length}
         next={fetchMoreData}
